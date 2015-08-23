@@ -9,7 +9,7 @@
     <string name="status_string">Status</string>
     <string name="not_done_string">Not Done</string>
     <string name="priority_low_string">Low</string>
-    <string name="priority_medium_string">Medium</string>
+    <string name="priority_medium_string">Med</string>
     <string name="priority_high_string">High</string>
     <string name="time_and_date_string">Time and Date</string>
     <string name="no_date_set_string">0000&#8211;00&#8211;00</string>

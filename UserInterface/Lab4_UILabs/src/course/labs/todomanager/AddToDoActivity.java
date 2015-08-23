@@ -10,7 +10,6 @@ import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -89,13 +88,8 @@ public class AddToDoActivity extends Activity {
 		cancelButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
-
-
 				// TODO - Indicate result and finish
-
-                
-                
+				finish();
 			}
 		});
 
@@ -104,13 +98,10 @@ public class AddToDoActivity extends Activity {
 		resetButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
-
 				// TODO - Reset data to default values
-
-
-                
-                
+				setDefaultTitle();
+				setDefaultStatus();
+				setDefaultPriority();
                 
 				// reset date and time
 				setDefaultDateTime();
@@ -130,34 +121,45 @@ public class AddToDoActivity extends Activity {
 
 
 				// TODO - Get the current Priority
-				Priority priority = null;
+				/*int prioritySelectedIndex = mPriorityRadioGroup.getCheckedRadioButtonId();
+				RadioButton checkedPriority = (RadioButton) mPriorityRadioGroup.findViewById(prioritySelectedIndex);
+				Priority priority = Priority.valueOf(checkedPriority.getText().toString().toUpperCase());*/
+				Priority priority = getPriority();
 
 				// TODO - Get the current Status
-				Status status = null;
-
+				/*int statusSelectedIndex = mStatusRadioGroup.getCheckedRadioButtonId();
+				RadioButton checkedStatus = (RadioButton) mStatusRadioGroup.findViewById(statusSelectedIndex);
+				String statusText = checkedStatus.getText().toString();
+				Status status = statusText.equals(Status.DONE.toString()) ? Status.DONE : Status.NOTDONE;*/
+				Status status = getStatus(); 
+						
 				// TODO - Get the current ToDoItem Title
-
-
-				String titleString = null;
-
+				String titleString = mTitleText.getText().toString();
 
 				// Construct the Date string
 				String fullDate = dateString + " " + timeString;
 
 				// Package ToDoItem data into an Intent
 				Intent data = new Intent();
-				ToDoItem.packageIntent(data, titleString, priority, status,
-						fullDate);
+				ToDoItem.packageIntent(data, titleString, priority, status, fullDate);
 
 				// TODO - return data Intent and finish
-
-
-
-
-            
-            
+				setResult(RESULT_OK, data);
+				finish();
 			}
 		    });
+	}
+	
+	private void setDefaultTitle() {
+	   mTitleText.setText("");
+	}
+	
+	private void setDefaultStatus() {	   
+	   mDefaultStatusButton.setChecked(true);
+	}
+	
+	private void setDefaultPriority() {
+	   mDefaultPriorityButton.setChecked(true);
 	}
 
 	// Do not modify below this point.
